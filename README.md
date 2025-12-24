@@ -1,72 +1,152 @@
-## Introduction
+# Alzheimer’s Disease: Exploratory and Statistical Analysis
 
-Alzheimer’s disease (AD) is a progressive neurodegenerative disorder that primarily affects memory and cognitive function. This analysis explores potential risk factors and patterns associated with Alzheimer's disease diagnosis using a dataset of 2,149 patients. The dataset includes demographic information, lifestyle habits, medical history, cognitive assessments, and behavioral symptoms.
+## Overview
 
-**Objectives of the Analysis**
-1. Data Preprocessing
-- Convert numerical categorical variables (e.g., Gender, Ethnicity, Smoking) into readable labels.
-- Identify missing values and handle inconsistencies.
+This project presents an exploratory data analysis (EDA) and statistical assessment of an Alzheimer’s disease dataset using Python. The goal is to identify demographic, clinical, and lifestyle factors associated with an Alzheimer’s diagnosis through reproducible data preparation, visualization, and hypothesis testing.
 
-2. Exploratory Data Analysis (EDA)
-- Examine the distribution of key features such as age, MMSE scores, and diagnosis rates.
-- Visualize correlations between cognitive function, lifestyle, and chronic diseases.
+The analysis is designed to emphasize clarity, reproducibility, and appropriate use of statistical methods rather than predictive modeling or causal claims. All analyses were conducted in a local Python environment using JupyterLab on a desktop.
 
-3. Risk Factor Assessment
-- Compare groups based on AD diagnosis to identify statistically significant differences in risk factors.
-- Analyze the impact of hypertension, diabetes, smoking, and lifestyle habits on cognitive decline.
+---
 
-4. Hypothesis Testing
-- Perform t-tests and chi-square tests to determine which factors are significantly associated with AD.
-- Perform ANOVA tests on key variables to examine differences across AD diagnosis groups. 
+## Project Objectives
 
-This analysis uncovers patterns and relationships in the dataset, providing insights into the potential predictors of Alzheimer’s disease and helping guide further research and intervention strategies. 
+* Inspect and validate the structure and quality of Alzheimer’s disease data
+* Explore demographic and clinical distributions across diagnosis groups
+* Visualize relationships between diagnosis status and key risk factors
+* Perform statistical tests (Chi-square, ANOVA) to evaluate group differences
+* Generate figures and summary tables
 
+---
 
-### Data Source
-The data used in this project was collected and developed by [Rabie El Kharoua](https://www.kaggle.com/rabieelkharoua) as part of the [Alzheimer's Disease Dataset](https://www.kaggle.com/datasets/rabieelkharoua/alzheimers-disease-dataset/data) on Kaggle. It is synthetic and **for educational purposes only.** All data analyses and visualizations were performed using Python in JupyterLab Desktop. 
+## Repository Structure
 
-## Exploratory Data Analysis
-
-See file: [alzheimers_disease_project.ipynb](https://github.com/martinorkuma/Alzheimers_disease_project/blob/main/alzheimers_disease_project.ipynb) for full exploratory data analysis. 
-
-```Python
-# I combined boxplots for Physical Activity and Diet Quality into one cell:
-
-fig, axes = plt.subplots(1, 2, figsize=(14, 7))
-
-# Physical Activity
-sns.boxplot(data=df, x=df["Diagnosis"], y=df["PhysicalActivity"], 
-            hue="Diagnosis", palette=["lightblue", "gold"], ax=axes[0])
-axes[0].set_xlabel("Diagnosis (No Alzheimer’s Dx | Alzheimer’s Dx)")
-axes[0].set_ylabel("Physical Activity Score")
-axes[0].set_title("Physical Activity by Diagnosis")
-
-# Diet Quality
-sns.boxplot(data=df, x=df["Diagnosis"], y=df["DietQuality"], 
-            hue="Diagnosis", palette=["lightblue", "gold"], ax=axes[1])
-axes[1].set_xlabel("Diagnosis (No Alzheimer’s Dx | Alzheimer’s Dx)")
-axes[1].set_ylabel("Diet Quality Score")
-axes[1].set_title("Diet Quality by Diagnosis")
-
-plt.tight_layout()
-plt.show()
+```
+.
+├── alzheimers_disease_data.csv      # Input dataset
+├── output/                          # Saved figures from Python visualizations
+│   ├── age_distribution.png
+│   ├── mmse_distribution.png
+│   ├── ethnicity_distribution.png
+│   ├── diagnosis_distribution.png
+│   ├── correlation_heatmap.png
+│   ├── mmse_by_diagnosis.png
+│   ├── bmi_by_diagnosis.png
+│   ├── hypertension_by_diagnosis.png
+│   ├── diabetes_by_diagnosis.png
+│   ├── cardiovascular_by_diagnosis.png
+│   └── activity_diet_by_diagnosis.png
+├── 01_load_clean_data.py            # Data loading, inspection, and cleaning
+├── 02_data_viz.py                   # Exploratory visualizations
+├── 03_stat_analysis.py              # Statistical hypothesis testing
+└── README.md                        # Project documentation
 ```
 
-![Output1](https://github.com/user-attachments/assets/5d425cb7-787e-47e2-b7bc-c1234e748fd2)
+---
 
+## Analysis Workflow
 
+### 1. Data Loading and Validation (`01_load_clean_data.py`)
 
-## Key Insights
-- MMSE scores are the strongest differentiator between individuals diagnosed with AD and those without AD diagnosis.
-- Although several studies, Edwards III et al. (2019), have shown the association between lifestyle factors (BMI, diet, physical activity) and chronic diseases, this dataset does not show strong statistical associations.
-- HDL cholesterol levels are significantly different across groups. Further investigation (e.g., Tukey's post-hoc test) can determine which groups differ.
-- Age, BMI, and LDL cholesterol are not significantly associated with Alzheimer's diagnosis in this dataset.
-- Further analysis (e.g., logistic regression) is needed to determine potential risk factors and predictors of AD.
+* Load the dataset using `pandas.`
+* Inspect data types and structure
+* Generate summary statistics
+* Check for duplicates and missing values
+* Convert binary and categorical variables into interpretable labels
 
+### 2. Exploratory Data Analysis (`02_data_viz.py`)
 
-## References
+* Age and MMSE score distributions
+* Diagnosis and ethnicity breakdowns
+* Correlation heatmap of numeric variables
+* Boxplots comparing diagnosis groups across:
 
-- Arevalo‐Rodriguez, I., Smailagic, N., i Figuls, M. R., Ciapponi, A., Sanchez‐Perez, E., Giannakou, A., ... & Cullum, S. (2015). [Mini‐Mental State Examination (MMSE) for the detection of Alzheimer's disease and other dementias in people with mild cognitive impairment (MCI).](https://www.cochranelibrary.com/cdsr/doi/10.1002/14651858.CD010783.pub2/full) Cochrane database of systematic reviews, (3).
-- Edwards III, G. A., Gamez, N., Escobedo Jr, G., Calderon, O., & Moreno-Gonzalez, I. (2019). [Modifiable risk factors for Alzheimer’s disease.](https://www.frontiersin.org/journals/aging-neuroscience/articles/10.3389/fnagi.2019.00146/full) Frontiers in aging neuroscience, 11, 146. 
-- [Rabie El Kharoua](https://www.kaggle.com/rabieelkharoua) (2024). [Alzheimer's Disease Dataset](https://www.kaggle.com/datasets/rabieelkharoua/alzheimers-disease-dataset/data). DOI: [10.34740/KAGGLE/DSV/8668279]. Kaggle.
-- Yoelin, A. B., & Saunders, N. W. (2017). [Score Disparity Between the MMSE and the SLUMS.](https://journals.sagepub.com/doi/full/10.1177/1533317517705222) American Journal of Alzheimer's Disease & Other Dementias®, 32(5), 282-288.
+  * MMSE
+  * BMI
+  * Physical activity
+  * Diet quality
+* Stacked bar charts for comorbidities:
+
+  * Hypertension
+  * Diabetes
+  * Cardiovascular disease
+
+All figures are automatically saved to the `output/` directory.
+
+### 3. Statistical Analysis (`03_stat_analysis.py`)
+
+* **Chi-square tests** for associations between diagnosis and categorical variables:
+
+  * Hypertension
+  * Diabetes
+  * Cardiovascular disease
+  * Smoking status
+* **One-way ANOVA** tests comparing diagnosis groups across numeric variables:
+
+  * Age
+  * BMI
+  * Lipid measures
+  * Physical activity
+  * Diet quality
+
+Statistical results are printed in a structured, interpretable format.
+
+---
+
+## Methods and Tools
+
+* **Python**: pandas, numpy, seaborn, matplotlib, scipy
+* **Statistical methods**: Chi-square tests, ANOVA
+* **Visualization**: histograms, boxplots, stacked bar charts, correlation heatmaps
+
+---
+
+## Key Findings (Summary)
+
+* Cognitive performance (MMSE) differs substantially by diagnosis status
+* Age is strongly associated with Alzheimer’s diagnosis, but does not fully explain group differences
+* Cardiovascular and metabolic comorbidities show significant associations with diagnosis
+* Lifestyle factors such as physical activity and diet quality differ between diagnosis groups
+
+These results support a multifactorial understanding of Alzheimer’s disease risk.
+
+---
+
+## Limitations
+
+* Cross-sectional data; no causal inference
+* Diagnosis treated as a binary outcome without disease staging
+* Potential confounding factors not jointly modeled
+
+---
+
+## Reproducibility
+
+To reproduce the analysis in a **local Python environment** (Windows, macOS, or Linux):
+
+```bash
+pip install pandas numpy seaborn matplotlib scipy
+python 01_load_clean_data.py
+python 02_data_viz.py
+python 03_stat_analysis.py
+```
+
+All generated figures will appear in the `output/` directory.
+
+---
+
+## Author
+
+**Martin Orkuma**
+
+---
+
+## Future Extensions
+
+* Multivariate regression or classification models
+* Feature importance and model interpretability
+* Longitudinal analysis (if data become available)
+* Integration into a Quarto or Markdown report
+
+---
+
+*This project is intended for educational and portfolio purposes and does not constitute clinical guidance.*
