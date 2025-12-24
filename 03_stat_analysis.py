@@ -43,5 +43,5 @@ for var in anova_vars:
 anova_df = pd.DataFrame.from_dict(anova_results, orient="index")
 
 # Display results
-display(anova_df)
+print(anova_df.to_string(index=False))
 
